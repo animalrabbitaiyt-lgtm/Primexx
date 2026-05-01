@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRIMEX - Pricing & Packages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --accent-alt: #06b6d4;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --bg-dark: #020617;
+            --bg-card: #1e293b;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0f1419 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* PRICING SECTION */
+        .pricing-section {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* PRICING CARD */
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent-alt);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(6, 182, 212, 0.2);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .package-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .package-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            min-height: 40px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .price-currency {
+            font-size: 1.5rem;
+        }
+
+        .price-period {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .duration {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* SERVICES LIST */
+        .services-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .service-category {
+            margin-bottom: 1.5rem;
+            border-left: 3px solid rgba(59, 130, 246, 0.3);
+            padding-left: 1rem;
+        }
+
+        .service-category-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-item {
+            padding: 0.6rem 0;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .service-item.included {
+            color: var(--text);
+        }
+
+        .service-item.excluded {
+            color: rgba(148, 163, 184, 0.5);
+            text-decoration: line-through;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: -2px;
+        }
+
+        .cross-icon {
+            color: #64748b;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: -2px;
+        }
+
+        /* CTA BUTTON */
+        .package-cta {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-top: auto;
+        }
+
+        .package-cta.primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+        }
+
+        .package-cta.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .package-cta.secondary {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .package-cta.secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* COMPARISON TABLE */
+        .comparison-section {
+            max-width: 1400px;
+            margin: 4rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .comparison-table {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            padding: 1.2rem;
+            gap: 1rem;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row.header {
+            background: rgba(59, 130, 246, 0.1);
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .table-cell {
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .table-cell:first-child {
+            text-align: left;
+            color: var(--text);
+        }
+
+        /* FAQ SECTION */
+        .faq-section {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .faq-item {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: var(--text-dim);
+            margin-top: 1rem;
+            display: none;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* CTA FINAL */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 4rem auto;
+        }
+
+        .final-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .final-cta p {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(15, 23, 42, 0.5);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px);
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .table-row.header {
+                display: none;
+            }
+
+            .table-row::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--accent);
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons a, .cta-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">PRIMEX</div>
+            <nav>
+                <a href="#packages">Packages</a>
+                <a href="#comparison">Comparison</a>
+                <a href="#faq">FAQ</a>
+                <button class="cta-btn">Get Consultation</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Simple & Transparent Pricing</h1>
+        <p>Choose the perfect package for your business growth</p>
+    </section>
+
+    <!-- PRICING PACKAGES -->
+    <section class="pricing-section" id="packages">
+        <div class="pricing-grid">
+            <!-- STARTER PACKAGE -->
+            <div class="pricing-card">
+                <div class="package-title">STARTER</div>
+                <p class="package-desc">Perfect for testing & small businesses</p>
+                
+                <div class="price">
+                    <span class="price-currency">₹</span>12,000
+                </div>
+                <div class="price-period">per month</div>
+                <div class="duration">⏱️ Month-to-month (No lock-in)</div>
+
+                <ul class="services-list">
+                    <!-- WEBSITE -->
+                    <li class="service-category">
+                        <div class="service-category-title">🌐 Website</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Simple template-based website (5 pages)</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Mobile responsive design</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Custom design</span>
+                        </div>
+                    </li>
+
+                    <!-- SEO -->
+                    <li class="service-category">
+                        <div class="service-category-title">🔍 SEO</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Basic on-page SEO setup</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Backlink building</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Advanced optimization</span>
+                        </div>
+                    </li>
+
+                    <!-- SOCIAL MEDIA -->
+                    <li class="service-category">
+                        <div class="service-category-title">📱 Social Media</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>1 platform management</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>4 posts per month</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Video/Reels editing</span>
+                        </div>
+                    </li>
+
+                    <!-- DESIGN -->
+                    <li class="service-category">
+                        <div class="service-category-title">🎨 Design</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>4 basic graphics per month</span>
+                        </div>
+                    </li>
+
+                    <!-- OTHER -->
+                    <li class="service-category">
+                        <div class="service-category-title">📊 Reports</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Simple monthly report</span>
+                        </div>
+                    </li>
+
+                    <!-- NOT INCLUDED -->
+                    <li class="service-category">
+                        <div class="service-category-title">❌ Not Included</div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Ads management (Meta/Google)</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Video editing</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Chatbot setup</span>
+                        </div>
+                        <div class="service-item excluded">
+                            <span class="cross-icon">✕</span>
+                            <span>Strategy calls</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="package-cta secondary">Get Started</button>
+            </div>
+
+            <!-- PROFESSIONAL PACKAGE (FEATURED) -->
+            <div class="pricing-card featured">
+                <div class="badge">⭐ MOST POPULAR ⭐</div>
+                <div class="package-title">PROFESSIONAL</div>
+                <p class="package-desc">Best choice for growing businesses</p>
+                
+                <div class="price">
+                    <span class="price-currency">₹</span>35,000
+                </div>
+                <div class="price-period">per month</div>
+                <div class="duration">📅 3-month minimum | No additional fees</div>
+
+                <ul class="services-list">
+                    <!-- WEBSITE -->
+                    <li class="service-category">
+                        <div class="service-category-title">🌐 Website</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Custom responsive website</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>SEO-optimized structure</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Contact forms & CTA buttons</span>
+                        </div>
+                    </li>
+
+                    <!-- SEO -->
+                    <li class="service-category">
+                        <div class="service-category-title">🔍 SEO</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Complete on-page optimization</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Backlink building strategy</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Keyword research & targeting</span>
+                        </div>
+                    </li>
+
+                    <!-- SOCIAL MEDIA -->
+                    <li class="service-category">
+                        <div class="service-category-title">📱 Social Media</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>2 platforms management</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>8 posts + 2 reels per month</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Community engagement</span>
+                        </div>
+                    </li>
+
+                    <!-- ADS -->
+                    <li class="service-category">
+                        <div class="service-category-title">💰 Paid Ads</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Meta Ads OR Google Ads (₹8-10k budget)</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Campaign setup & optimization</span>
+                        </div>
+                    </li>
+
+                    <!-- VIDEO -->
+                    <li class="service-category">
+                        <div class="service-category-title">🎬 Video</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>1 video editing per month</span>
+                        </div>
+                    </li>
+
+                    <!-- DESIGN -->
+                    <li class="service-category">
+                        <div class="service-category-title">🎨 Design</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>12 graphics per month</span>
+                        </div>
+                    </li>
+
+                    <!-- CHATBOT -->
+                    <li class="service-category">
+                        <div class="service-category-title">🤖 Automation</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Basic chatbot setup</span>
+                        </div>
+                    </li>
+
+                    <!-- SUPPORT -->
+                    <li class="service-category">
+                        <div class="service-category-title">📞 Support</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Weekly strategy calls</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Detailed monthly reports</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Email & WhatsApp support</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="package-cta primary">Start Professional Plan</button>
+            </div>
+
+            <!-- PREMIUM PACKAGE -->
+            <div class="pricing-card">
+                <div class="badge">👑 ENTERPRISE 👑</div>
+                <div class="package-title">PREMIUM</div>
+                <p class="package-desc">Complete all-in-one solution</p>
+                
+                <div class="price">
+                    <span class="price-currency">₹</span>1,00,000
+                </div>
+                <div class="price-period">per month</div>
+                <div class="duration">📅 6-12 month commitment</div>
+
+                <ul class="services-list">
+                    <!-- WEBSITE -->
+                    <li class="service-category">
+                        <div class="service-category-title">🌐 Website</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Premium custom design & UX</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Advanced SEO optimization</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>E-commerce integration</span>
+                        </div>
+                    </li>
+
+                    <!-- SEO -->
+                    <li class="service-category">
+                        <div class="service-category-title">🔍 SEO</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Advanced SEO strategy</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Competitor analysis</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Ongoing optimization</span>
+                        </div>
+                    </li>
+
+                    <!-- SOCIAL MEDIA -->
+                    <li class="service-category">
+                        <div class="service-category-title">📱 Social Media</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>3+ platforms management</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Unlimited posts & daily engagement</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Community building & growth</span>
+                        </div>
+                    </li>
+
+                    <!-- ADS -->
+                    <li class="service-category">
+                        <div class="service-category-title">💰 Paid Ads</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Meta Ads + Google Ads (Both)</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Large budget management (₹25k+)</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Advanced targeting & optimization</span>
+                        </div>
+                    </li>
+
+                    <!-- VIDEO -->
+                    <li class="service-category">
+                        <div class="service-category-title">🎬 Video</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>4 professional videos per month</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>High-quality production</span>
+                        </div>
+                    </li>
+
+                    <!-- DESIGN -->
+                    <li class="service-category">
+                        <div class="service-category-title">🎨 Design & Branding</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>25+ premium graphics per month</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Full branding guidelines</span>
+                        </div>
+                    </li>
+
+                    <!-- CONTENT -->
+                    <li class="service-category">
+                        <div class="service-category-title">📝 Content</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Blog posts & case studies</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Copywriting services</span>
+                        </div>
+                    </li>
+
+                    <!-- AUTOMATION -->
+                    <li class="service-category">
+                        <div class="service-category-title">🤖 AI & Automation</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Full AI chatbot + automation</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Workflow automation setup</span>
+                        </div>
+                    </li>
+
+                    <!-- SUPPORT -->
+                    <li class="service-category">
+                        <div class="service-category-title">📞 Premium Support</div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Dedicated account manager</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Bi-weekly strategy calls</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>24/7 priority support</span>
+                        </div>
+                        <div class="service-item included">
+                            <span class="check-icon">✓</span>
+                            <span>Custom reporting dashboard</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="package-cta primary">Schedule Consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="comparison-section" id="comparison">
+        <h2>Quick Comparison</h2>
+        <div class="comparison-table">
+            <div class="table-row header">
+                <div class="table-cell">Feature</div>
+                <div class="table-cell">Starter</div>
+                <div class="table-cell">Professional</div>
+                <div class="table-cell">Premium</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Website</div>
+                <div class="table-cell">Template</div>
+                <div class="table-cell">Custom</div>
+                <div class="table-cell">Premium</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Social Media Platforms</div>
+                <div class="table-cell">1</div>
+                <div class="table-cell">2</div>
+                <div class="table-cell">3+</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Paid Ads (Meta/Google)</div>
+                <div class="table-cell">❌ No</div>
+                <div class="table-cell">1 Platform</div>
+                <div class="table-cell">Both Included</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Video Editing</div>
+                <div class="table-cell">❌ No</div>
+                <div class="table-cell">1/month</div>
+                <div class="table-cell">4/month</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Graphic Design</div>
+                <div class="table-cell">4/month</div>
+                <div class="table-cell">12/month</div>
+                <div class="table-cell">25+/month</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">AI Chatbot</div>
+                <div class="table-cell">❌ No</div>
+                <div class="table-cell">Basic</div>
+                <div class="table-cell">Full + Automation</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Strategy Calls</div>
+                <div class="table-cell">❌ No</div>
+                <div class="table-cell">Weekly</div>
+                <div class="table-cell">Bi-weekly</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Account Manager</div>
+                <div class="table-cell">❌ Self-serve</div>
+                <div class="table-cell">Part-time</div>
+                <div class="table-cell">✅ Dedicated 24/7</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Support</div>
+                <div class="table-cell">Email</div>
+                <div class="table-cell">Email + WhatsApp</div>
+                <div class="table-cell">24/7 Priority</div>
+            </div>
+
+            <div class="table-row">
+                <div class="table-cell">Minimum Commitment</div>
+                <div class="table-cell">Month-to-month</div>
+                <div class="table-cell">3 months</div>
+                <div class="table-cell">6-12 months</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I upgrade or downgrade my package?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes! You can upgrade anytime. For downgrades, we'll adjust your next billing cycle. No penalties.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What's included in "Ad Budget Management"?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                We manage your ad campaigns, optimize spending, handle A/B testing, and provide daily monitoring. The ad budget (₹8k-10k) is separate and goes directly to Meta/Google.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Do you offer refunds?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                We offer a 7-day satisfaction guarantee. If you're not satisfied, we'll refund your first month (minus ad spend already used).
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How quickly will I see results?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Ads: 2-4 weeks. SEO: 2-3 months for significant results. Social Media: Engagement immediately, growth after 4-6 weeks.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I customize a package?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Absolutely! Starter and Professional packages are flexible. For custom combinations, book a consultation and we'll create the perfect package for you.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What's your onboarding process?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                1) Free consultation call (30 min), 2) Proposal & agreement (24 hrs), 3) Onboarding call (48 hrs), 4) Work begins. Total: 3-5 days.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What if I need to pause or stop?</span>
+                <span class="faq-toggle">▼</span>
+            </div>
+            <div class="faq-answer">
+                Starter: Cancel anytime. Professional/Premium: 30-day notice required. We'll ensure smooth handover of all your accounts and assets.
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>Ready to Scale Your Business?</h2>
+        <p>Pick the perfect package and start growing today. Or schedule a free consultation to discuss custom solutions.</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/919140933878" class="cta-btn">💬 WhatsApp Now</a>
+            <a href="mailto:the.primax.agency@gmail.com" class="cta-btn">✉️ Send Email</a>
+            <button class="cta-btn" onclick="alert('Call scheduling coming soon!')">📞 Schedule Call</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 PRIMEX Digital Marketing Agency. All rights reserved.</p>
+        <p style="margin-top: 1rem;">📞 +91 9140933878 | 📧 the.primax.agency@gmail.com | 🌐 primexs.netlify.app</p>
+    </footer>
+
+    <!-- JAVASCRIPT FOR FAQ -->
+    <script>
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
